@@ -1,0 +1,8 @@
+venv
+guides.txt
+*.log
+*.csv
+*.db
+*.ipynb
+.ipynb_checkpoints
+.DS_Store
