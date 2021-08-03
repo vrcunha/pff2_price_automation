@@ -101,3 +101,6 @@ Contributions are what make the open source community such an amazing place to b
 # Licença
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
+# Acknowledgements
+- othneildrew
