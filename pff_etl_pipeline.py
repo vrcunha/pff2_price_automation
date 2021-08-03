@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 import os
 import os.path
 import telegram
 from dotenv import load_dotenv
+=======
+>>>>>>> 19c5c780479b647172cbd093802ff6ef3c66642b
 import sqlite3
 import pandas as pd
 from datetime import datetime as dt
@@ -12,6 +15,7 @@ from selenium.webdriver import Firefox
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.firefox.options import Options
 
+<<<<<<< HEAD
 default_args = {'owner': 'Victor'}
 
 path = "/Users/victorcunha/Codes/pff2_dl_airflow/"
@@ -29,6 +33,26 @@ dag = DAG(
     tags=['ETL_BOT'],
 )
 
+=======
+default_args = {'owner': 'airflow'}
+
+path = "/Users/victorcunha/Codes/pff2_dl_airflow/"
+path_db = path+"pff_mask.db"
+path_temp_csv = path+"_temp.csv"
+
+
+dag = DAG(
+    dag_id='pff_etl',
+    default_args=default_args,
+    schedule_interval='@daily',
+    start_date=days_ago(1),
+)
+
+path = "/Users/victorcunha/Codes/pff2_dl_airflow/"
+path_db = path+"pff_mask.db"
+path_temp_csv = path+"_temp.csv"
+
+>>>>>>> 19c5c780479b647172cbd093802ff6ef3c66642b
 def find_aura_3m(browser, BASE_URL):
     browser.get(BASE_URL)
     try:
@@ -43,7 +67,11 @@ def find_aura_3m(browser, BASE_URL):
         link = None
     try:
         price_span = browser.find_element_by_css_selector('span.best-price')
+<<<<<<< HEAD
         price = price_span.text
+=======
+        price = (price_span.text)
+>>>>>>> 19c5c780479b647172cbd093802ff6ef3c66642b
         status = 'produto disponível'
     except NoSuchElementException:
         no_price_span = browser.find_element_by_css_selector('.bt-product-unavailable')
@@ -63,6 +91,7 @@ def _extract():
 
 
     with open(path_temp_csv, 'w') as f:
+<<<<<<< HEAD
         f.write(f'date;name;price;status;link\n')
         f.write(f'{date};{name};{price};{status};{link}\n')
 
@@ -79,6 +108,13 @@ def _transform():
         dataset_df.price = pd.to_numeric(dataset_df.price, downcast="float").map('{:,.2f}'.format)
     except AttributeError:
         dataset_df.price = pd.to_numeric(dataset_df.price, downcast="float").map('{:,.2f}'.format)
+=======
+        f.write(f'date,name,price,status,link\n')
+        f.write(f'{date},{name},{price},{status},{link}\n')
+
+def _transform():
+    dataset_df = pd.read_csv(path_temp_csv)
+>>>>>>> 19c5c780479b647172cbd093802ff6ef3c66642b
 
     dataset_df.status.replace({'produto disponível':1, 'produto indisponível':0}, inplace=True)
 
@@ -88,6 +124,7 @@ def _transform():
     )
 
 def _load():
+<<<<<<< HEAD
     connect_db = sqlite3.connect(path_db)
     
     dataset_df = pd.read_csv(path_temp_csv)
@@ -100,6 +137,17 @@ def telegram_msg(chat, token):
         msg = f'O produto {df.iloc[0,1]} -> Disponível\n{df.iloc[0,4]}'
     bot = telegram.Bot(token=token)
     bot.sendMessage(chat_id=chat, text=msg)
+=======
+    #conectando com o banco de dados Data Wharehouse.
+    connect_db = sqlite3.connect(path_db)
+    
+    #lendo os dados a partir dos arquivos csv.
+    dataset_df = pd.read_csv(path_temp_csv)
+
+    #carregando os dados no banco de dados.
+    dataset_df.to_sql("pff_masks", connect_db, if_exists="append", index=False)
+
+>>>>>>> 19c5c780479b647172cbd093802ff6ef3c66642b
 
 extract_task = PythonOperator(
     task_id="extract", python_callable=_extract, dag=dag
@@ -113,6 +161,7 @@ load_task = PythonOperator(
     task_id="load", python_callable=_load, dag=dag
 )
 
+<<<<<<< HEAD
 telegram_task = PythonOperator(
     task_id="telegram",
     op_args=[
@@ -124,3 +173,6 @@ telegram_task = PythonOperator(
 )
 
 extract_task >> transform_task >> load_task >> telegram_task
+=======
+extract_task >> transform_task >> load_task
+>>>>>>> 19c5c780479b647172cbd093802ff6ef3c66642b
