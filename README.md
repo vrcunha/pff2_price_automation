@@ -1,9 +1,3 @@
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
-
 # Automação da busca de preço de máscaras PFF2
 Program for Aura 3M mask pricing and availability verification.
 
