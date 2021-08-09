@@ -68,16 +68,14 @@ def _extract():
 
 def _transform():
     dataset_df = pd.read_csv(path_temp_csv, sep=';')
-
+    
     try:
         if 'R$' in dataset_df.iloc[0,2]:
-            dataset_df.iloc[0,2] = dataset_df.iloc[0,2].replace('R$', '').strip()
+                dataset_df.iloc[0,2] = dataset_df.iloc[0,2].replace('R$', '').strip()
         if ',' and '.' in dataset_df.iloc[0,2]:
             dataset_df.iloc[0,2] = dataset_df.iloc[0,2].replace('.', '').replace(',', '.')
         dataset_df.price = pd.to_numeric(dataset_df.price, downcast="float").map('{:,.2f}'.format)
     except TypeError:
-        dataset_df.price = pd.to_numeric(dataset_df.price, downcast="float").map('{:,.2f}'.format)
-    except AttributeError:
         dataset_df.price = pd.to_numeric(dataset_df.price, downcast="float").map('{:,.2f}'.format)
 
     dataset_df.status.replace({'produto disponível':1, 'produto indisponível':0}, inplace=True)
@@ -98,8 +96,8 @@ def telegram_msg(chat, token):
     df = pd.read_csv(path_temp_csv)
     if df.status.values != [0]:
         msg = f'O produto {df.iloc[0,1]} -> Disponível\n{df.iloc[0,4]}'
-    bot = telegram.Bot(token=token)
-    bot.sendMessage(chat_id=chat, text=msg)
+        bot = telegram.Bot(token=token)
+        bot.sendMessage(chat_id=chat, text=msg)
 
 extract_task = PythonOperator(
     task_id="extract", python_callable=_extract, dag=dag
@@ -116,7 +114,7 @@ load_task = PythonOperator(
 telegram_task = PythonOperator(
     task_id="telegram",
     op_args=[
-        os.getenv('TELEGRAM_CHAT_ID'),
+        os.getenv('TELEGRAM_GROUP_ID'), 
         os.getenv('TELEGRAM_TOKEN')
     ],
     python_callable=telegram_msg,
