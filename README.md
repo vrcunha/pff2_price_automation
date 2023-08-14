@@ -95,7 +95,7 @@ Contributions are what make the open source community such an amazing place to b
 
 # License
 
-For more information about the license, see LICENSE.md
+Distributed under the MIT License. See LICENSE for more information.
 
 # Acknowledgements
 - othneildrew
