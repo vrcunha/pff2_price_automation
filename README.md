@@ -1,5 +1,5 @@
-# Automação da busca de preço de máscaras PFF2
-Program for Aura 3M mask pricing and availability verification.
+# Automated Price Tracking for PFF2 Masks
+Program for Aura 3M mask price tracking and availability verification.
 
 # About The Project
 
@@ -78,7 +78,7 @@ The following steps demonstrate how to run this locally.
 
 4. The token and chat ID must be included in the DAG in order for the telegram bot to work.
 
-# Contribuições
+# Contribuitions
 
 Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are greatly appreciated.
 
@@ -88,17 +88,17 @@ Contributions are what make the open source community such an amazing place to b
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-# Autor
+# Author
 [![Badge](https://img.shields.io/badge/Autor-Victor_Cunha-07405E?style=for-the-badge)](https://github.com/vrcunha/)
 
-#### Contatos
+#### Contacts
 
 [![Badge](https://img.shields.io/badge/Github-black?style=for-the-badge&logo=github)](https://github.com/vrcunha)
 [![Badge](https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/victor-de-rezende-cunha)
 [![Badge](https://img.shields.io/badge/Telegram-blue?style=for-the-badge&logo=telegram)](https://t.me/VictorRCunha)
 [![Badge](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:cunhavictorr@gmail.com)
 
-# Licença
+# License
 
 For more information about the license, see LICENSE.md
 
